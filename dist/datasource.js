@@ -47,24 +47,20 @@ System.register([], function (_export, _context) {
         _createClass(GenericDatasource, [{
           key: 'query',
           value: function query(options) {
-            var query = this.buildQueryParameters(options);
-
-            if (query.targets.length <= 0) {
-              return this.q.when([]);
-            }
+            var target = options.targets[0];
+            var params = target.query;
 
             return this.backendSrv.datasourceRequest({
-              url: this.url + '/query',
-              data: query,
-              method: 'POST',
+              url: this.url + '/query/grafana?' + params,
+              method: 'GET',
               headers: { 'Content-Type': 'application/json' }
-            });
+            }, function (data, cb) {});
           }
         }, {
           key: 'testDatasource',
           value: function testDatasource() {
             return this.backendSrv.datasourceRequest({
-              url: this.url + '/',
+              url: this.url + '/pkg/status',
               method: 'GET'
             }).then(function (response) {
               if (response.status === 200) {
@@ -73,42 +69,11 @@ System.register([], function (_export, _context) {
             });
           }
         }, {
-          key: 'annotationQuery',
-          value: function annotationQuery(options) {
-            return this.backendSrv.datasourceRequest({
-              url: this.url + '/annotations',
-              method: 'POST',
-              data: options
-            }).then(function (result) {
-              return result.data;
-            });
-          }
-        }, {
-          key: 'metricFindQuery',
-          value: function metricFindQuery(options) {
-            return this.backendSrv.datasourceRequest({
-              url: this.url + '/search',
-              data: options,
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' }
-            }).then(this.mapToTextValue);
-          }
-        }, {
           key: 'mapToTextValue',
           value: function mapToTextValue(result) {
             return _.map(result.data, function (d, i) {
               return { text: d, value: i };
             });
-          }
-        }, {
-          key: 'buildQueryParameters',
-          value: function buildQueryParameters(options) {
-            //remove placeholder targets
-            options.targets = _.filter(options.targets, function (target) {
-              return target.target !== 'select metric';
-            });
-
-            return options;
           }
         }]);
 

@@ -2,7 +2,19 @@
 	<ul class="tight-form-list">
     <li class="tight-form-item query-keyword">Query</li>
     <li>
-      <metric-segment-model property="ctrl.target.target" get-options="ctrl.getOptions()" on-change="ctrl.onChangeInternal()" css-class="tight-form-item-xxlarge"></metric-segment-model>
+    <input type="text"
+      class="tight-form-input input-large"
+      ng-model="ctrl.target.query"
+      spellcheck='false'
+      placeholder="query parameters"
+      ng-blur="ctrl.onChangeInternal()"
+      ng-submit="ctrl.onChangeInternal()"
+      data-min-length=0
+      >
     </li>
+
   </ul>
 </query-editor-row>
+
+
+

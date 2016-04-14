@@ -8,7 +8,6 @@ export class GenericDatasourceQueryCtrl extends QueryCtrl {
 
     this.scope = $scope;
     this.uiSegmentSrv = uiSegmentSrv;
-    this.target.target = this.target.target || 'select metric';
   }
 
   getOptions() {

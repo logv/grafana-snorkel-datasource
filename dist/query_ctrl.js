@@ -66,7 +66,6 @@ System.register(['app/plugins/sdk', './css/query-editor.css!'], function (_expor
 
           _this.scope = $scope;
           _this.uiSegmentSrv = uiSegmentSrv;
-          _this.target.target = _this.target.target || 'select metric';
           return _this;
         }
 

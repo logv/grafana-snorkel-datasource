@@ -10,17 +10,15 @@ export class GenericDatasource {
 
   // Called once per panel (graph)
   query(options) {
-    var query = this.buildQueryParameters(options);
-
-    if (query.targets.length <= 0) {
-      return this.q.when([]);
-    }
+    var target = options.targets[0];
+    var params = target.query;
 
     return this.backendSrv.datasourceRequest({
-      url: this.url + '/query',
-      data: query,
-      method: 'POST',
+      url: this.url + '/query/grafana?' + params,
+      method: 'GET',
       headers: { 'Content-Type': 'application/json' }
+    }, function(data, cb) {
+    
     });
   }
 
@@ -28,7 +26,7 @@ export class GenericDatasource {
   // Used for testing datasource in datasource configuration pange
   testDatasource() {
     return this.backendSrv.datasourceRequest({
-      url: this.url + '/',
+      url: this.url + '/pkg/status',
       method: 'GET'
     }).then(response => {
       if (response.status === 200) {
@@ -37,39 +35,10 @@ export class GenericDatasource {
     });
   }
 
-  annotationQuery(options) {
-    return this.backendSrv.datasourceRequest({
-      url: this.url + '/annotations',
-      method: 'POST',
-      data: options
-    }).then(result => {
-      return result.data;
-    });
-  }
-
-  // Optional
-  // Required for templating
-  metricFindQuery(options) {
-    return this.backendSrv.datasourceRequest({
-      url: this.url + '/search',
-      data: options,
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' }
-    }).then(this.mapToTextValue);
-  }
-
   mapToTextValue(result) {
     return _.map(result.data, (d, i) => {
       return { text: d, value: i};
     });
   }
 
-  buildQueryParameters(options) {
-    //remove placeholder targets
-    options.targets = _.filter(options.targets, target => {
-      return target.target !== 'select metric';
-    });
-
-    return options;
-  }
 }
