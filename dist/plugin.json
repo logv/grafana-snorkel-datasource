@@ -1,5 +1,5 @@
 {
-  "name": "snorkel",
+  "name": "Snorkel",
   "id": "grafana-snorkel-datasource",
   "type": "datasource",
 
@@ -13,18 +13,15 @@
   "annotations": false,
 
   "info": {
-    "description": "snorkel data source",
+    "description": "Datasource for querying the snorkel data analysis tool",
     "author": {
       "name": "okay",
       "url": "http://github.com/logv/snorkel"
     },
-    "logos": {
-      "small": "src/img/simpleJson_logo.svg",
-      "large": "src/img/simpleJson_logo.svg"
-    },
     "links": [
-      {"name": "GitHub", "url": "https://github.com/logv/snorkel"},
-      {"name": "MIT License", "url": "https://github.com/grafana/simple-json-datasource/blob/master/LICENSE"}
+      {"name": "GitHub", "url": "https://github.com/logv/grafana-snorkel-datasource"},
+      {"name": "Snorkel", "url": "https://github.com/logv/snorkel"},
+      {"name": "MIT License", "url": "https://github.com/grafana/grafana-snorkel-datasource/blob/master/LICENSE"}
     ],
     "version": "0.0.1",
     "updated": "2016-04-13"
