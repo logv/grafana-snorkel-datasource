@@ -1,5 +1,5 @@
-// from stackoverflow 
-function QueryStringToJSON(str) {            
+// from stackoverflow
+function QueryStringToJSON(str) {
     var pairs = str.split('&');
     var result = {};
     pairs.forEach(function(pair) {
@@ -22,9 +22,8 @@ function QueryStringToJSON(str) {
 export class GenericDatasource {
 
   constructor(instanceSettings, $q, backendSrv) {
-    this.type = instanceSettings.type;
     this.url = instanceSettings.url;
-    this.name = instanceSettings.name;
+    this.auth_token = instanceSettings.jsonData.auth_token;
     this.q = $q;
     this.backendSrv = backendSrv;
   }
@@ -45,6 +44,7 @@ export class GenericDatasource {
 
     queryObj.start = options.range.from._d;
     queryObj.end = options.range.to._d;
+    queryObj.auth_token = this.auth_token;
 
     var interval = parseInt(options.interval, 10);
     var suffix = options.interval.replace(interval, "");
@@ -59,7 +59,7 @@ export class GenericDatasource {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' }
     }, function(data, cb) {
-    
+
     });
   }
 

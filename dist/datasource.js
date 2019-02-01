@@ -56,9 +56,8 @@ System.register([], function (_export, _context) {
         function GenericDatasource(instanceSettings, $q, backendSrv) {
           _classCallCheck(this, GenericDatasource);
 
-          this.type = instanceSettings.type;
           this.url = instanceSettings.url;
-          this.name = instanceSettings.name;
+          this.auth_token = instanceSettings.jsonData.auth_token;
           this.q = $q;
           this.backendSrv = backendSrv;
         }
@@ -83,6 +82,7 @@ System.register([], function (_export, _context) {
 
             queryObj.start = options.range.from._d;
             queryObj.end = options.range.to._d;
+            queryObj.auth_token = this.auth_token;
 
             var interval = parseInt(options.interval, 10);
             var suffix = options.interval.replace(interval, "");
